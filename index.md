@@ -1,16 +1,18 @@
 # Phonic Privacy Policy
 
-_Last updated: 2026-05-03_
+_Last updated: 2026-05-05_
 
 ## Summary
 
-Phonic is a dictation app for iPhone. It records your voice when you ask it to and converts it into text using one of three options:
+Phonic is a dictation app for iPhone. It records your voice when you ask it to and converts it into text using one of three options that **you** select in Settings:
 
-- **On-device**: a Whisper model running entirely on your phone. Nothing leaves the device.
-- **Groq** (default for cloud): the recording is sent to Groq's transcription service.
-- **OpenAI**: the recording is sent to OpenAI's transcription service.
+- **On-device** (default): a Whisper model running entirely on your phone via Apple's Core ML. Your audio **never leaves the device**.
+- **Groq**: each recording is uploaded over HTTPS to `api.groq.com` for transcription, authenticated with the Groq API key **you** provide.
+- **OpenAI**: each recording is uploaded over HTTPS to `api.openai.com` for transcription, authenticated with the OpenAI API key **you** provide.
 
-The transcribed text is inserted into whatever app you are typing in. Phonic does not store your audio, does not store transcripts, does not show ads, and does not sell or share your data with anyone other than the provider you choose, for the sole purpose of transcribing your speech.
+The first time you switch to a cloud provider (Groq or OpenAI), Phonic shows an in-app confirmation explaining what is sent, where it is sent, and asks you to opt in. Until you opt in, no audio leaves your device.
+
+The transcribed text is inserted into whatever app you are typing in. Phonic itself does not run any servers, does not store your audio, does not store transcripts, does not show ads, and does not sell or share your data with anyone other than the provider you have explicitly chosen, for the sole purpose of transcribing your speech.
 
 ## What we collect
 
@@ -33,10 +35,11 @@ We do not collect: contact lists, location, browsing history, identifiers, usage
 ## What we do not do
 
 - We do not sell your data.
-- We do not share your data with anyone other than OpenAI as described above.
+- We do not share your data with anyone other than the cloud transcription provider (Groq or OpenAI) you have explicitly opted into in Settings, and only for the duration of a single transcription request.
 - We do not show ads.
 - We do not track you across other apps or websites.
 - We do not log your keystrokes or read text from the apps you type in. The Phonic keyboard only writes transcribed text into the active text field via Apple's `UITextDocumentProxy.insertText` API.
+- Phonic itself does not collect, store, or transmit any data to any Phonic-controlled server. Phonic has no servers.
 
 ## Custom keyboard "Allow Full Access"
 
@@ -51,10 +54,18 @@ We do not use Full Access to read text from the apps you are typing in, to log k
 
 ## Third-party services
 
-When you dictate, your audio is sent to the provider you have selected in Settings, using the API key you supply for that provider. Each provider's data handling is governed by its own privacy policy and your relationship with them, separate from Phonic.
+If — and only if — you have explicitly opted into a cloud provider in Settings, your dictated audio will be uploaded to that provider's transcription endpoint (over HTTPS) when you dictate. Phonic does not relay this audio through any intermediate server — the request goes directly from your iPhone to the provider's API, authenticated with the API key you have supplied.
 
-- **Groq** (default): https://groq.com/privacy-policy
+What is sent: a short audio recording (typically 1–60 seconds of `.m4a` AAC at your microphone's native sample rate) plus the model name and optional language hint.
+
+What is not sent: your name, contacts, location, identifiers, other apps' data, anything you type with other keyboards, or any data tied to your identity beyond what the provider can infer from your API key.
+
+Each provider's data handling is governed by **their** own privacy policy and your account/agreement with them, which Phonic is not a party to. We use these providers' published policies as the basis for confirming your data is handled to a comparable standard.
+
+- **Groq**: https://groq.com/privacy-policy
 - **OpenAI**: https://openai.com/policies/privacy-policy
+
+If you would rather your audio never leaves your device at all, select **On-device** in Settings — that's Phonic's default.
 
 ## Data retention
 
